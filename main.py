@@ -2,20 +2,23 @@ from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 
 app = Ursina()
+
 player = FirstPersonController()
 player.cursor.visible = False
 Sky()
-camera.fov = 75
+camera.fov = 90
 camera.clip_plane_far = 1000
 
 blocks = []
+
+active_block = 'assets/grass.png'
 
 # Terrain Gen
 for x in range(20):
     for z in range(20):
         block = Button(
             model='cube',
-            texture='grass.png',
+            texture='assets/grass.png',
             color=color.white,
             position=(x, 0, z),
             parent=scene,
@@ -38,8 +41,17 @@ crosshair2 = Entity(
     position=(0, 0)
 )
 
-# Put Blocks
 def input(key):
+    global active_block
+
+    if key == '1':
+        active_block = 'assets/grass.png'
+        print("Bloco ativo: Grama")
+
+    elif key == '2':
+        active_block = 'assets/stone.png'
+        print("Bloco ativo: Pedra")
+
     for block in blocks:
         if block.hovered:
             if key == 'escape':
@@ -52,7 +64,7 @@ def input(key):
             elif key == 'right mouse down':
                 new_block = Button(
                     model='cube',
-                    texture='grass.png',
+                    texture=active_block,
                     color=color.white,
                     position=block.position + mouse.normal,
                     parent=scene,
