@@ -14,6 +14,7 @@ blocks = []
 active_block = 'assets/grass.png'
 
 # Terrain Gen
+# Y = 0
 for x in range(20):
     for z in range(20):
         block = Button(
@@ -25,6 +26,19 @@ for x in range(20):
             origin_y=0.5
         )
         blocks.append(block)
+#Y < 0
+for y in [-1, -2]:
+    for x in range(20):
+        for z in range(20):
+            block = Button(
+                model='cube',
+                texture='assets/stone.png',
+                color=color.white,
+                position=(x, y, z),
+                parent=scene,
+                origin_y=0.5
+            )
+            blocks.append(block)
 
 crosshair = Entity(
     parent=camera.ui,
